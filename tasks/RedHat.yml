@@ -1,7 +1,10 @@
 ---
 - name: kompose | RHEL | Install package from github
-  yum: name={{ kompose_rpm_url }}
+  yum:
+    name: "{{ kompose_rpm_url }}"
+    state: present
+    disable_gpg_check: true
   register: pkg_inc_kompose
-  until: pkg_inc_kompose != 1
+  until: pkg_inc_kompose.failed != 1
   retries: 3
   delay: 5
